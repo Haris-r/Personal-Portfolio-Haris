@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width">
+        <title> Haris Rafiq's Portfolio Website </title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+        <!--Evens out and normalizes the differences between browesers-->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900|Source+Sans+Pro:300,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <script type="text/javascript" src="scripts/processing.js"> </script>
+    </head>
+
+    <body>
+        <header>
+            <div class="logo">
+
+                <a href ="index.html"> <img src="images/logo.png" alt="" class="logoImg"></a>
+
+            </div>
+
+            <button class="nav-toggle" aria-label="toggle navigation">
+
+                <span class="menu"></span>
+
+            </button>
+
+            <nav class="nav">
+
+                <ul class="navList">
+                    <li class="navItem"> <a href="index.html" class="navLink"> Home </a> </li>
+                    <li class="navItem"> <a href="index.html#skills" class="navLink"> Services </a> </li>
+                    <li class="navItem"> <a href="index.html#about" class="navLink"> About Me </a> </li>
+                    <li class="navItem"> <a href="index.html#projects" class="navLink"> portfolio </a> </li>
+                    
+                </ul>
+                 
+            </nav>
+        </header>
+
+        <!-- Portfolio Mouse-click game -->
+
+        <section class="intro" id="port">
+
+            <h1 class="sectionTitle">
+                Movie Database  <strong> Presentation Tool </strong> 
+            </h1>
+
+            <p class="sectionSubtitle"> PHP framework (Codeigniter) </p>
+            <img src="images/project3.png" alt="movies presentation website" class="mainImg">
+
+        </section>
+
+        <div class="individual-Project">
+
+            <p> Developing, deploying, publishing and finding your own web service is the name of this project.</p>
+
+            <img src="images/project3.PNG" alt="higher resolution of the movies website">
+
+            <p>The goal of this project was to create an old movies presentation using JAXB and GSON libraries to convert the data,
+                 using CRUD functionalities to create, read, update and delete the data and manipulating it using AJAX requests
+                  so the user can manipulate the database easily using the implemented jQuery user interface. </p>
+                 
+            <p> I have uploaded the database to google cloud and tested it so whenever any user would want to instantiate the program, 
+                they can easily do so by a normal app engine server without having to worry about implementing their own database.</p>
+
+            <p>The source code of this project is available to be downloaded by following the link below:</p>
+
+            <a href="https://github.com/Haris-r/Games-Reviews" class="btn"> source code </a>
+
+        
+
+        
+
+        </div>
+
+        <!-- Footer -->
+
+        <footer class="footer">
+
+            <a href="mailto:harisr99@yahoo.com" class="footerLink">My Email Adress</a>
+
+            <ul class="socialList">
+                <li class="socialListItem"><a href="https://www.linkedin.com/in/haris-rafiq-1ab281195">
+                    <i class="fab fa-linkedin"></i>
+                </a></li>
+
+                <li class="socialListItem"><a href="https://www.instagram.com/haris_rx99/">
+                    <i class="fab fa-instagram"></i>
+                </a></li>
+
+                <li class="socialListItem"><a href="https://twitter.com/haris_rx99">
+                    <i class="fab fa-twitter-square"></i>
+                </a></li>
+                
+                <li class="socialListItem"><a href="https://github.com/Haris-r">
+                    <i class="fab fa-github-square"></i>
+                </a></li>
+            </ul>
+
+        </footer>
+
+        <script src="scripts/javascript.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width">
+        <title> Haris Rafiq's Portfolio Website </title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+        <!--Evens out and normalizes the differences between browesers-->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900|Source+Sans+Pro:300,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <script type="text/javascript" src="scripts/processing.js"> </script>
+    </head>
+
+    <body>
+        <header>
+            <div class="logo">
+
+                <a href ="index.html"> <img src="images/logo.png" alt="" class="logoImg"></a>
+
+            </div>
+
+            <button class="nav-toggle" aria-label="toggle navigation">
+
+                <span class="menu"></span>
+
+            </button>
+
+            <nav class="nav">
+
+                <ul class="navList">
+                    <li class="navItem"> <a href="index.html" class="navLink"> Home </a> </li>
+                    <li class="navItem"> <a href="index.html#skills" class="navLink"> Services </a> </li>
+                    <li class="navItem"> <a href="index.html#about" class="navLink"> About Me </a> </li>
+                    <li class="navItem"> <a href="index.html#projects" class="navLink"> portfolio </a> </li>
+                    
+                </ul>
+                 
+            </nav>
+        </header>
+
+        <!-- Portfolio Mouse-click game -->
+
+        <section class="intro" id="port">
+
+            <h1 class="sectionTitle">
+                A Mouse-Click Game <strong> Fighterz </strong> 
+            </h1>
+
+            <p class="sectionSubtitle"> Processing (java) </p>
+            <img src="images/project1.png" alt="mouse click game" class="mainImg">
+
+        </section>
+
+        <div class="individual-Project">
+
+            <p> To demonstrate the game in-real-time I have managed to get hold of the source code to convert my simplified Java code,
+                into javascript.  </p>
+
+            <h3>Demonstration of Fighterz!</h3>
+
+            <section class="game">
+
+                <script type="text/processing">
+    
+                    PImage background;
+                    PImage loser;
+                    PImage Start;
+                    PImage Start2;
+    
+                    PImage badGuy;
+                    PImage badGuy1;
+                    PImage badGuy2;
+    
+                    PImage expl1;
+                    PImage expl2;
+                    PImage expl3;
+                    PImage expl4;
+                    PImage expl5;
+    
+                    int backgroundY = 0;
+    
+                    int score= 0;
+                    int lives = 3;
+    
+                    boolean run = true;
+                    boolean end = false;
+                    boolean gameMode = end;
+    
+                    ArrayList<Saibaman> saibaman;
+                    ArrayList<Explosion> Explosions;
+    
+                    Yamcha warrior;
+                    SplashScreen menu;
+                    Beam bullet;
+    
+    
+    
+                    void setup(){
+                    size(500,700);
+    
+                    Start = loadImage("images/Start.png");
+                    Start2 = loadImage("images/Start2.png");
+    
+                    loser = loadImage("images/dead.png");
+                    loser.resize(width, height);
+    
+                    background = loadImage("images/terrain.jpg");
+    
+                    badGuy = loadImage("images/saibaman.png");
+                    badGuy1 = loadImage("images/saibaman1.png");
+                    badGuy2 = loadImage("images/saibaman2.png");
+    
+                    expl1 = loadImage("images/exp1.png");
+                    expl2 = loadImage("images/exp2.png");
+                    expl3 = loadImage("images/exp3.png");
+                    expl4 = loadImage("images/exp4.png");
+                    expl5 = loadImage("images/exp5.png");
+    
+                    background.resize(width, height);
+    
+                    bullet = new Beam(0-50,0-50,200,200,5);
+                    menu = new SplashScreen();
+                    warrior = new Yamcha(250);
+    
+                    saibaman = new ArrayList <Saibaman>();
+                    Explosions = new ArrayList <Explosion>();
+                    }
+    
+                    void draw(){
+                    
+                        
+                        if(gameMode == end && lives ==3){
+                    menu.Screen();
+                        }
+                    
+                        if(gameMode == run){
+                        image(background, 0,0);
+                        moveBackground();
+                        warrior.render();
+                        bullet.update();
+                        
+                        textSize (20);
+                        fill(255,255,0);
+                        text("Score:" + score, 400, 500 );
+                        text("Lives: "+ lives, 400,550  );
+                        
+                        for(Explosion boom : Explosions){
+                            
+                            boom.display();
+                    
+                        
+                        
+                        }
+                        
+                            
+                            for(int i =0; i < 10; i++){
+                            
+                            saibaman.add(new Saibaman(100,200,3, badGuy, badGuy1, badGuy2));
+                            
+                            Saibaman SAIBAMAN = saibaman.get(i);
+                            
+                            SAIBAMAN.update();
+                            
+                            if(SAIBAMAN.gameOver()){
+                                
+                                saibaman.remove(i);
+                                lives -=1;
+                            }
+                            
+                            }
+                        }
+                            
+                        
+                        if(lives == 0){
+                            
+                                    image(loser,0, 0);
+                                    fill(134,43,200);
+                                    textSize(40);
+                                    text("YOU GOT YAMCHAED!", 30, 600);
+                                    text("Press SPACE to Restart", 30, 660);
+                                    gameMode = end;
+                            
+                            }
+                            
+                        
+                    
+                    }
+    
+                    void moveBackground()
+                    {
+                    image(background, 0, backgroundY);
+                    image(background, 0, background.height+ backgroundY);
+                    backgroundY -=4;
+                    if(backgroundY == -background.height)
+                    {
+                        backgroundY = 0;
+                    }
+    
+                    }
+    
+    
+                    void mousePressed(){
+                    
+                    if(mouseButton == LEFT){
+                        bullet.changeColor();
+                        for (int i =0; i<saibaman.size(); i++){
+                        Saibaman s = (Saibaman) saibaman.get(i);
+                        if (dist(s.x,s.y,mouseX,mouseY)<50) {
+                            saibaman.remove(i);
+                            Explosions.add(new Explosion((int)s.x, (int)s.y, expl1,expl2,expl3,expl4,expl5));
+                            score ++;
+                        }
+                        }
+                        }
+                    }
+    
+    
+    
+                    void mouseReleased(){
+                    if(mouseButton == LEFT){
+                    bullet.changeColor();
+                    }
+                    }
+    
+                    
+                    void keyPressed(){
+                    
+                    
+                    if( keyCode == ' ' && gameMode == end){
+                        gameMode = run;
+                        setup();
+                        score = 0;
+                        lives = 3;
+                    }
+                    }
+    
+    
+                    class Beam{
+                    
+                        PImage beam;
+                        PImage beam2;
+                        float x;
+                        float y;
+                        int Width;
+                        int Height;
+                        float speed, maxSpeed, minSpeed;
+                        boolean firing;
+                        int counter;
+                        
+                        Beam(int xPos, int yPos, int deltaSize, int deltaSizeY, float speed)
+                        {
+                        this.x = xPos;
+                        this.y = yPos;
+                        this.Width = deltaSize;
+                        this.Height = deltaSizeY;
+                        this.speed = speed;
+                        beam = loadImage("images/blast.png");
+                        beam2 = loadImage("images/yellowBlast.png");
+                        
+                        
+                        }
+                        
+                        void direction(){
+                        
+                        x = lerp(x, mouseX-150, 0.1);
+                        y = lerp(y, mouseY-150,0.1);
+                        
+                        }
+                        
+                        void render(){
+                        
+                        image(beam, x+50, y,200, 200);
+                        
+                        }
+                        
+                        void move(){
+                        y += speed;
+                        }
+                        
+                        void changeColor(){
+                        
+                        
+                        image(beam2, x+50,y,200, 200);
+                    
+                    
+                        }
+                        
+                    
+                        void update()
+                        {
+                        render();
+                        move();
+                        direction();
+                        }  
+                            
+                        
+                    }
+    
+                    class Explosion
+                    {
+                    int x;
+                    int y;
+                    int size = 100;
+                    int counter=0;
+                    PImage expl1;
+                    PImage expl2;
+                    PImage expl3;
+                    PImage expl4;
+                    PImage expl5;
+                    
+                    Explosion(int x,int y,PImage expl1, PImage expl2, PImage expl3, PImage expl4, PImage expl5){
+                        
+                        this.x = x;
+                        this.y = y;
+                        this.expl1 = expl1;
+                        this.expl2 = expl2;
+                        this.expl3 = expl3;
+                        this.expl4 = expl4;
+                        this.expl5 = expl5;
+                    
+                        
+                    }
+                    
+                    void display(){
+                        
+                        counter+=1;
+                        
+                        if(counter < 10){
+                        
+                        image(expl1, x,y,size, size);
+                        }
+                        else if(counter < 20){
+                        image(expl2, x,y,size, size);
+                        }
+                        else if(counter < 30){
+                        image(expl3, x,y,size, size);
+                        }
+                        else if(counter < 40){
+                        image(expl4, x,y,size, size);
+                        }
+                        else if(counter < 50){
+                        image(expl5, x,y,size, size);
+                        }
+                    
+                    }
+                    
+                    }
+    
+    
+                    class Saibaman{
+                    
+                        float x;
+                        float y;
+                        
+                        int speedY;
+                        
+                        PImage badGuy;
+                        PImage badGuy1;
+                        PImage badGuy2;
+                        
+                        final color BEAM = color(245,235,26);
+                        final color BEAM1 = color(155,157,55);
+                        final color BEAM2 = color(235,231,26);
+                        
+                        int counter = 0;
+                    
+                        Saibaman(int xPos, int yPos, int dSpeedY, PImage badGuy, PImage badGuy1, PImage badGuy2){
+                        
+                        this.x = xPos;
+                        this.y = yPos;
+                        this.speedY = dSpeedY;
+                        this.badGuy = badGuy;
+                        this.badGuy1 = badGuy1;
+                        this.badGuy2 = badGuy2;
+                        
+                        x = random(0,width);
+                        y = random(-2900,-1000);
+                    
+                        }
+                    
+                        void move()
+                        {
+                        y=y+speedY;
+                        
+                        if (y==0){
+                            y=height;
+                        }
+                        }
+                        
+                        
+                        
+                        void render(){
+                        
+                        counter+=1;
+                        if(counter < 10){
+                        image(badGuy, x, y, 50,60);
+                        }
+                        else if (counter < 20){
+                            image(badGuy1, x, y, 50,60);
+                        }
+                        else if(counter < 30){
+                            image(badGuy2, x, y, 50,60);   
+                        }else{
+                            counter =0;
+                        }
+                        }
+                        
+                        void update()
+                        {
+                        render();
+                        move();
+                        goal();
+                        }
+                        
+                        
+                        void goal(){
+                        
+                        x = lerp(x, width/4, 0.005);
+                        y = lerp(y, 500 , 0.005);
+                        
+                        
+                        }
+                        
+                        boolean gameOver (){
+                        
+                        if(y > height-200){
+                            
+                            return true;
+                        }
+                        return false;
+                        }
+                        
+                        boolean hits(){
+                        
+                        color detectedColour;
+                        for (int i=(int)x; i<x+100; i++)
+                        {
+                            detectedColour = get((int)i-50, (int)y);
+                            if (detectedColour == BEAM || detectedColour == BEAM1 || detectedColour == BEAM2 ){
+                                return true; 
+                            }
+                        }
+                        return false;
+                        }
+                        
+                        
+                    
+                    }
+    
+                    class SplashScreen{
+                    
+                        int counter = 0;
+                        
+                        void Screen (){
+                        display();
+                        }
+                        
+                        void display(){
+                        
+                        if(counter < 10){
+                        
+                        image(Start, 0,0, width, height);
+                        }
+                        else if(counter < 20){
+                        image(Start2, 0,0, width ,height);
+                        }
+                        else{
+                        
+                        counter = 0;
+                        }
+                        counter+=1;  
+                        
+                        spaceBar();
+                        }
+                    
+                        void spaceBar(){
+                        
+                        textSize(40);
+                        fill(127,0,255);
+                        text("Press space bar to play",30,600);
+                        
+                        }
+                    }
+    
+                    PImage defender;
+    
+    
+                    class Yamcha{
+                    int x;
+                    int y;
+                    int size;
+                    
+                    Yamcha(int xPos){
+                        this.x = xPos;
+    
+                        defender = loadImage("images/yamcha.png");
+                        defender.resize(100,100);
+                    }
+                    
+                    void render()
+                    {
+                        image(defender, width/4+20, 600);
+    
+    
+                    }
+                    
+    
+                    }
+    
+                
+                
+                </script>
+    
+                <canvas id="sketch" style="border: 1px solid black;"></canvas>
+
+                <div class="paragraph">
+                    <p> 
+                        To start the game click on the highlighted canvas, and press spacebar, you can see your lives and scores
+                        at the bottom-right of the screen whilst playing.
+                    </p>
+
+                    <br>
+
+                    <p>The objective of the game is to control the sphere with hovering your mouse cursor in order
+                        to defeat the Saibamen (enemies). They are unstoppable and will keep coming and you only have 3 lives, 
+                        what's your highest score? </p>
+
+                    <br>
+
+                    <p>The source code of this project is available to be downloaded by following the link below:</p>
+                
+                    <br>
+
+                    <a href="https://github.com/Haris-r/mouse-click-game" class="btn">Download!</a>
+
+                </div>
+
+                
+    
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+
+        <footer class="footer">
+
+            <a href="mailto:harisr99@yahoo.com" class="footerLink">My Email Adress</a>
+
+            <ul class="socialList">
+                <li class="socialListItem"><a href="https://www.linkedin.com/in/haris-rafiq-1ab281195">
+                    <i class="fab fa-linkedin"></i>
+                </a></li>
+
+                <li class="socialListItem"><a href="https://www.instagram.com/haris_rx99/">
+                    <i class="fab fa-instagram"></i>
+                </a></li>
+
+                <li class="socialListItem"><a href="https://twitter.com/haris_rx99">
+                    <i class="fab fa-twitter-square"></i>
+                </a></li>
+                
+                <li class="socialListItem"><a href="https://github.com/Haris-r">
+                    <i class="fab fa-github-square"></i>
+                </a></li>
+            </ul>
+
+        </footer>
+
+        <script src="scripts/javascript.js"></script>
+
+    </body>
+</html>
